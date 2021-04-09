@@ -1,0 +1,11 @@
+.main{
+    background-color: rgb(190, 35, 35);
+    border:3px solid black;
+    height: auto;
+    margin-top: 1rem;
+    grid-column: 2/5;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap:1rem;
+    padding: 1rem;
+}

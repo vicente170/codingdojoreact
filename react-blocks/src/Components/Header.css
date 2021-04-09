@@ -1,0 +1,6 @@
+header{
+    height: 100px;
+    background-color: green;
+    grid-column: 1/5;
+    border:3px solid black;
+}

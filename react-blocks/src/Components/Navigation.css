@@ -1,0 +1,7 @@
+.navigation{
+    grid-column: 1/2;
+    background-color: lightskyblue;
+    height: 400px;
+    margin-top: 1rem;
+    border:3px solid black;
+}
