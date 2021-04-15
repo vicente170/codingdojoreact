@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState,useEffect,useRef } from "react";
 
 const UserForm = (props) => {
   /* const [username, setUsername] = useState("");
@@ -21,21 +21,10 @@ const [form,setForm] = useState({
     match: false
   });
 
-  const checkPasswords = () =>{
-    console.log(form.password.length);
-    console.log(form.confirmPassword.length);
+  const passwordRef=useRef(null);
+  const cPasswordRef=useRef(null);
 
-    if (form.password.length===0 | form.confirmPassword.length===0){}else{
-      if (form.password===form.confirmPassword){
-      return '';
-      }
-      else{
-        return 'Contraseña no calzan';
-      }
-    }
-
-    
-  }
+  const [iguales,setIguales]=useState(true);
 
 
 
@@ -45,9 +34,6 @@ const [form,setForm] = useState({
       [e.target.name]: e.target.value,
     });
     const { firstName, lastName, email, password, confirmPassword } = form;
-
-    console.log(e.target.value);//a
-    console.log(form.firstName);//
 
     
 
@@ -104,68 +90,10 @@ const [form,setForm] = useState({
           
           }
 
-    /* if (checkPasswords()){
-      setErrors({
-        ...errors,
-        confirmPasswordE: "Contraseña calzan",
-      });
-    }
-    else{
-      setErrors({
-        ...errors,
-        confirmPasswordE: "Contraseña NO calzan",
-      });
-    } */
+    const valp=passwordRef.current.value;
+    const valcp=cPasswordRef.current.value;
 
-
-          
-
-    /* if(e.target.name==='password' && e.target.value!=confirmPassword){
-    setErrors({
-        ...errors,
-        confirmPasswordE: "Contraseñas no coinciden",
-        });
-    }
-    if(e.target.name==='password' && e.target.value===confirmPassword){
-    setErrors({
-        ...errors,
-        confirmPasswordE: "Contraseñas no coinciden",
-        });
-
-    } */
-
-    /* if (firstName.length < 3 ) {
-      setErrors({
-        ...errors,
-        firstNameE: "Nombre tiene menos de 2 caracteres",
-      });
-      //return alert ('nombre de usuario menor a 3 caracteres');
-    } 
-    if (firstName.length >= 3 ) {
-        setErrors({
-          ...errors,
-          firstNameE: "",
-        });
-        //return alert ('nombre de usuario menor a 3 caracteres');
-      } */
-
-   /*  if (lastName.length < 3) {
-        setErrors({
-          ...errors,
-          lastNameE: "Apellido tiene menos de 2 caracteres",
-        });
-        //return alert ('nombre de usuario menor a 3 caracteres');
-      } 
-      if (lastName.length >= 3) {
-        setErrors({
-          ...errors,
-          lastNameE: "",
-        });
-        //return alert ('nombre de usuario menor a 3 caracteres');
-      } */
-
-      console.log(form);
-      console.log(errors);
+    setIguales(valp===valcp);
 
   };
 
@@ -204,18 +132,15 @@ const [form,setForm] = useState({
       </div>
       <div className="form-group">
         <label htmlFor="password">Contraseña</label>
-        <input onChange={onChange} type="text" name="password"></input>
+        <input onChange={onChange} type="text" name="password" ref={passwordRef}></input>
         <p style={redstyle}> {errors.passwordE} </p>
-        <p style={redstyle}> {errors.confirmPasswordE} </p>
-        <p style={redstyle}> {checkPasswords()} </p>
       </div>
       <div className="form-group">
         <label htmlFor="confirmPassword">Confirmar Contraseña</label>
-        <input onChange={onChange} type="text" name="confirmPassword"></input>
+        <input onChange={onChange} type="text" name="confirmPassword" ref={cPasswordRef}></input>
+        <p style={redstyle}> {iguales ? '' : 'Las contraseñas deben ser iguales'} </p>
       </div>
     </form>
-    <h1>  nombre {form.firstName} </h1>
-    <h1> apellido {form.lastName} </h1>
 
     </div>
     
