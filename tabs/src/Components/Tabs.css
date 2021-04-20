@@ -1,0 +1,26 @@
+.tabcontainer .titles a{
+    background-color: lightgrey;
+    padding: 1rem;
+    border: 2px solid black;
+    margin-right: 0.2rem;
+    cursor: pointer;
+    
+}
+
+.tabcontainer .titles a.active{
+    background-color: red;
+}
+
+.tabcontainer{
+margin-top: 1rem;
+padding: 1rem;
+display:flex;
+flex-direction: column;
+width: 300px;
+}
+
+.tabcontainer .content{
+    border: 2px solid black;
+    margin-top: 1rem;
+    
+}
