@@ -4,76 +4,50 @@ import './Tabs.css';
 
 const Tabs = (props) => {
 
-    const tabs = props.children;
+    const [tabs, setTabs] = useState([{
+        content: 'Soy el tab uno',
+        title: 'Tab1',
+        state: '',
+    },
+    {
+        content: 'Soy el tab dos',
+        title: 'Tab2',
+        state: 'active'
 
-    const [states,setStates]=useState(
-        {
-        tab1state: tabs[0].props.state,
-        tab2state: tabs[1].props.state,
-        tab3state: tabs[2].props.state,
+    },
+    {
+        content: 'Soy el tab tres',
+        title: 'Tab3',
+        state: ''
 
-    });
+    }]);
 
-    const changeActive=(i)=>{
+    const changeActive=(item,i)=>{
 
-        console.log('llegue');
-        console.log(1);
-        if(i===0){
-            setStates({
-                tab1state:'active',
-                tab2state: '',
-                tab3state: '',
-            })
-        }
-        if(i===1){
-            setStates({
-                tab1state:'',
-                tab2state: 'active',
-                tab3state: '',
-            })
-        }
-        if(i===2){
-            setStates({
-                tab1state:'',
-                tab2state: '',
-                tab3state: 'active',
-            })
-        }
+        let newTabs = tabs.map(tab => {
+            
+            tab.title === tabs[i].title ? tab.state = 'active' : tab.state = '';
+            return tab;
+        });
 
-    }
+        setTabs(newTabs);
 
-    const showActive = () =>{
-        if(states.tab1state==='active'){
-            return tabs[0].props.content
-        }
-        if(states.tab2state==='active'){
-            return tabs[1].props.content
-        }
-        if(states.tab3state==='active'){
-            return tabs[2].props.content
-        }
-    }
-
-
+    }   
     
-    console.log(tabs);
 
     return (
         <div className='tabcontainer'>
 
             <div className="titles">
-            <a className={states.tab1state} onClick={()=>changeActive(0)} > {tabs[0].props.title} </a>
-            <a className={states.tab2state} onClick={()=>changeActive(1)} > {tabs[1].props.title} </a>
-            <a className={states.tab3state} onClick={()=>changeActive(2)} > {tabs[2].props.title} </a>
-            {/* {tabs.map((item,i)=><a key={i} className={item.props.state} onClick={()=>changeActive(item,i)} > {item.props.title} </a>)} */}
+            {tabs.map((item, i) =>
+                <a key={i} className={item.state} onClick={() => changeActive(item, i)} > {item.title} </a>
+                )}
             </div>
             <div className="content">
-               {/*  {tabs.filter(item=>item.props.state==='active').map((item,i)=><p key={i}> {item.props.content} </p>)} */}
-               <p> {showActive()} </p>
+                {tabs.filter(item=>item.state==='active').map((item,i)=><p key={i}> {item.content} </p>)}
+               
             </div>
 
-            
-            
         </div>
     );
 }
