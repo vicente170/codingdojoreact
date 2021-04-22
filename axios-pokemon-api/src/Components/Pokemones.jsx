@@ -7,30 +7,19 @@ const Pokemones = () => {
     const [click,setClick]=useState(false);
 
     const onClick = () =>{
-
+        axios.get('https://pokeapi.co/api/v2/pokemon?limit=807&offset=0')
+        .then(response=>{
+            console.log(response.data.results);
+            setPokemons(
+                response.data.results
+            )
+        }).catch(e=>console.log(new Error('fallo al comunicarse con la api')))
         
     }
 
-    useEffect(() => {
-        console.log('hola');
-        if(click){
-            axios.get('https://pokeapi.co/api/v2/pokemon?limit=807&offset=0')
-            .then(response=>{
-                console.log(response.data.results);
-                setPokemons(
-                    response.data.results
-                )
-            }).catch(e=>console.log(new Error('fallo al comunicarse con la api')))
-        }
-        
-    }, [click]);
-
-
-
-
     return (
         <div>
-            <button onClick={e=>setClick(true)}>FETCH POKEMONS</button>
+            <button onClick={onClick}>FETCH POKEMONS</button>
             <ul className="poks">
                 {pokemons? pokemons.map((item,index)=>{
                     return (<li key={index}> {item.name} </li>)
